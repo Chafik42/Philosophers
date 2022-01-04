@@ -18,6 +18,6 @@ Cela permet de creer le thread
 
 pthread_join(VARIABLE, NULL);
 
-Permet de finaliser le thread (Pas encore compris)
+Cette fonction permet d'attendre que le thread que l'on identifira grace a la variable, ce finisse, par exemple, si le programme s'apprete a se finir mais que le thread ne c'est pas fini, pthread_join va nous permettre d'attendre que le thread finisse son executions avant de finir notre programme.
 
 A savoir que ces fonctions retourne un int !, donc il est necessaire de les proteger...
