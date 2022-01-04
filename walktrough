@@ -1,0 +1,23 @@
+Check des arguments OK, bien que pas obligatoire, c'est un bon debut.
+
+A chaque action d'un philosophe il faudra aussi afficher le "timestamp"
+Le timestamps demarre au debut du programme, donc c'est temps ecouler apres le lancement du programme philo.
+
+Il faudra ensuite creer un Thread pour CHAQUE philosophers.
+
+la fonction mutex permet de ne exectuer une meme action sur plusieurs thread en meme temps (une securiter donc)
+
+Comment creer un thread :
+
+Initialiser la variable qui gardera les information du thread
+Par convention on l'appel t1 t2, on pourra les appeler p1 p2 ...
+
+pthread_create(ADRESSE DE LA VARIABLE, NULL, ADRESSE DE LA FONCTION, PARAMETRE DE LA FONCTION, NULL SI VOID);
+
+Cela permet de creer le thread
+
+pthread_join(VARIABLE, NULL);
+
+Permet de finaliser le thread (Pas encore compris)
+
+A savoir que ces fonctions retourne un int !, donc il est necessaire de les proteger...
