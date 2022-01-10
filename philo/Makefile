@@ -6,14 +6,16 @@
 #    By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/04 15:26:40 by cmarouf           #+#    #+#              #
-#    Updated: 2022/01/04 16:11:49 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/01/10 15:25:51 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = srcs/main.c \
+	   srcs/philo.c \
 	   srcs/error.c \
 	   srcs/check_arguments.c \
 	   utils/ft_atoi.c \
+	   utils/ft_utils.c \
 
 OBJS = ${SRCS:.c=.o}
 
@@ -33,7 +35,7 @@ NAME = philo
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(THREADFLAGS) $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(THREADFLAGS) -g $(OBJS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
