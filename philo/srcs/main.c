@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/10 16:47:12 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/11 16:55:01 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -21,9 +21,19 @@ long long	timestamp(void)
 
 void	init_mutex(t_philos *philo, t_rules *rules)
 {
-	pthread_mutex_init(philo->&fork);
-	pthread_mutex_init(rules->&action_printing);
-	pthread_mutex_init(rules->&eating);
+	int	i;
+
+	i = 0;
+	philo->forks = malloc(sizeof(pthread_mutex_t) * (rules->n_philo));
+	if (!philo->forks)
+		return ;
+	while (i < rules->n_philo)
+	{
+		pthread_mutex_init(&philo->forks[i], NULL);
+		i++;
+	}
+	pthread_mutex_init(&(philo->action_printing), NULL);
+	pthread_mutex_init(&(philo->eating), NULL);
 }
 
 void	init_philo(t_philos *philo, t_rules *rules)
@@ -36,6 +46,9 @@ void	init_philo(t_philos *philo, t_rules *rules)
 		philo[i].lastmeal = 0;
 		philo[i].rules = rules;
 		philo[i].id = i;
+		philo[i].fork_left = i;
+		philo[i].fork_right = (i + 1) % rules->n_philo;
+		/* Fourchette a droite de l'autre fourchette, % max si jamais on est sur la derniere*/
 		i++;
 	}
 }
