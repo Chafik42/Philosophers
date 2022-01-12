@@ -6,13 +6,15 @@
 #    By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/04 15:26:40 by cmarouf           #+#    #+#              #
-#    Updated: 2022/01/11 17:23:42 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/01/12 16:38:43 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS = srcs/main.c \
 	   srcs/philo.c \
 	   srcs/error.c \
+	   srcs/start.c \
+	   srcs/end.c \
 	   srcs/exit.c \
 	   srcs/check_arguments.c \
 	   utils/ft_atoi.c \

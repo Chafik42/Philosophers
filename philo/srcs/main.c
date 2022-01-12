@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/11 16:55:01 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/12 19:04:23 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -45,11 +45,13 @@ void	init_philo(t_philos *philo, t_rules *rules)
 	{
 		philo[i].lastmeal = 0;
 		philo[i].rules = rules;
+		philo[i].rules->dead = 0;
 		philo[i].id = i;
 		philo[i].fork_left = i;
 		philo[i].fork_right = (i + 1) % rules->n_philo;
 		/* Fourchette a droite de l'autre fourchette, % max si jamais on est sur la derniere*/
 		i++;
+		printf("UNE FOIS\n");
 	}
 }
 
@@ -59,6 +61,9 @@ void	init_rules(int ac ,char **av, t_rules *rules)
 	rules->time_to_die = ft_atoi(av[2]);
 	rules->time_to_sleep = ft_atoi(av[3]);
 	rules->time_to_eat = ft_atoi(av[4]);
+	rules->dead = 0;
+	rules->satisfied = 0;
+	rules->eating = 0;
 	if (ac == 6)
 		rules->must_eat_count = ft_atoi(av[5]);
 	else

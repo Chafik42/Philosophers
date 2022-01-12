@@ -1,33 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   end.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 17:17:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/12 18:56:41 by cmarouf          ###   ########.fr       */
+/*   Created: 2022/01/12 16:39:05 by cmarouf           #+#    #+#             */
+/*   Updated: 2022/01/12 18:49:26 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	exit_thread(t_philos *philo, t_rules *rules)
+void	check_end(t_philos *philo, t_rules *rules)
 {
 	int	i;
+	long long	dead_clock;
 
-	i = 0;
-	while (i < rules->n_philo)
+	while (1)
 	{
-		if (pthread_join(philo[i].t_id, NULL))
-			return ;
-		i++;
+		i = 0;
+		while (i < rules->n_philo && (!rules->dead))
+		{
+			pthread_mutex_lock(&(philo->eating));
+			dead_clock = timestamp() - philo[i].lastmeal;
+			if (dead_clock >= rules->time_to_die)
+			{
+				print_action(philo, rules, philo[i].id, " died\n");
+				rules->dead = 1;
+			}
+			pthread_mutex_unlock(&(philo->eating));
+		}
+		if (rules->dead)
+			break ;
 	}
-	i = 0;
-	while (i < rules->n_philo)
-	{
-		pthread_mutex_destroy(&(philo->forks[i]));
-		i++;
-	}
-	pthread_mutex_destroy(&(philo->action_printing));
 }
+
+
+
+
+
+
+
+
 

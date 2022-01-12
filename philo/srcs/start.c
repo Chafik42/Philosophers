@@ -1,33 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exit.c                                             :+:      :+:    :+:   */
+/*   start.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/11 17:17:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/12 18:56:41 by cmarouf          ###   ########.fr       */
+/*   Created: 2022/01/12 16:06:56 by cmarouf           #+#    #+#             */
+/*   Updated: 2022/01/12 16:11:32 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	exit_thread(t_philos *philo, t_rules *rules)
+int	start_threads(t_philos *philo, t_rules *rules)
 {
 	int	i;
 
 	i = 0;
 	while (i < rules->n_philo)
 	{
-		if (pthread_join(philo[i].t_id, NULL))
-			return ;
+		if (!(i % 2))
+			if (pthread_create(&(philo[i].t_id), NULL, init, &(philo[i])))
+				return (0);
 		i++;
 	}
+	usleep(rules->time_to_eat * 1000);
 	i = 0;
 	while (i < rules->n_philo)
 	{
-		pthread_mutex_destroy(&(philo->forks[i]));
+		if ((i % 2))
+			if (pthread_create(&(philo[i].t_id), NULL, init, &(philo[i])))
+				return (0);
 		i++;
 	}
-	pthread_mutex_destroy(&(philo->action_printing));
+	return (1);
 }
-

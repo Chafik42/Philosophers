@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:21:13 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/11 17:19:10 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/12 18:32:52 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_rules
 	long long	time_start;
 	int	dead;
 	int	satisfied;
+	int	eating;
 }				t_rules;
 
 typedef struct s_philos
@@ -58,5 +59,8 @@ int		philosophers(t_rules *rules);
 void	init_philo(t_philos *philo, t_rules *rules);
 void	init_mutex(t_philos *philo, t_rules *rules);
 void	exit_thread(t_philos *philo, t_rules *rules);
+int		start_threads(t_philos *philo, t_rules *rules);
+void	check_end(t_philos *philo, t_rules *rules);
+void	*init(void *data);
 
 #endif
