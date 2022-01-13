@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:39:05 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/12 18:49:26 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/13 19:47:28 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -23,7 +23,7 @@ void	check_end(t_philos *philo, t_rules *rules)
 		{
 			pthread_mutex_lock(&(philo->eating));
 			dead_clock = timestamp() - philo[i].lastmeal;
-			if (dead_clock >= rules->time_to_die)
+			if (dead_clock > rules->time_to_die)
 			{
 				print_action(philo, rules, philo[i].id, " died\n");
 				rules->dead = 1;
@@ -31,7 +31,9 @@ void	check_end(t_philos *philo, t_rules *rules)
 			pthread_mutex_unlock(&(philo->eating));
 		}
 		if (rules->dead)
+		{
 			break ;
+		}
 	}
 }
 

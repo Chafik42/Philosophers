@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/12 19:04:23 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/13 19:13:58 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -51,7 +51,6 @@ void	init_philo(t_philos *philo, t_rules *rules)
 		philo[i].fork_right = (i + 1) % rules->n_philo;
 		/* Fourchette a droite de l'autre fourchette, % max si jamais on est sur la derniere*/
 		i++;
-		printf("UNE FOIS\n");
 	}
 }
 

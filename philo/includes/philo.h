@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:21:13 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/12 18:32:52 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/13 19:19:29 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_philos
 	int				fork_right;
 	int				fork_left;
 	int				id;
-	int				lastmeal;
+	long long		lastmeal;
 	pthread_t		t_id;
 	struct s_rules *rules;
 	pthread_mutex_t *forks;
