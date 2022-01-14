@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:21:13 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/13 19:19:29 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/14 21:15:36 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ typedef struct s_rules
 	long long	time_start;
 	int	dead;
 	int	satisfied;
-	int	eating;
 }				t_rules;
 
 typedef struct s_philos
@@ -38,6 +37,7 @@ typedef struct s_philos
 	int				fork_left;
 	int				id;
 	long long		lastmeal;
+	int				eat_count;
 	pthread_t		t_id;
 	struct s_rules *rules;
 	pthread_mutex_t *forks;
@@ -62,5 +62,6 @@ void	exit_thread(t_philos *philo, t_rules *rules);
 int		start_threads(t_philos *philo, t_rules *rules);
 void	check_end(t_philos *philo, t_rules *rules);
 void	*init(void *data);
+void	sleep_andcheck(long long time, t_rules *rules);
 
 #endif
