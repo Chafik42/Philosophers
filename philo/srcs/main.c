@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/14 21:15:37 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 18:34:15 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -47,9 +47,9 @@ void	init_philo(t_philos *philo, t_rules *rules)
 		philo[i].rules = rules;
 		philo[i].rules->dead = 0;
 		philo[i].id = i;
-		philo[i].eat_count = 0;
 		philo[i].fork_left = i;
 		philo[i].fork_right = (i + 1) % rules->n_philo;
+		printf("INIT PHILO = %d\n", philo[0].fork_right);
 		/* Fourchette a droite de l'autre fourchette, % max si jamais on est sur la derniere*/
 		i++;
 	}

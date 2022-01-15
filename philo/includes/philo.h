@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:21:13 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/14 21:15:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 18:50:34 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,6 @@
 # include <unistd.h>
 # include <pthread.h>
 # include <sys/time.h>
-
-typedef struct s_rules
-{
-	int	n_philo;
-	int	time_to_die;
-	int	time_to_sleep;
-	int	time_to_eat;
-	int	must_eat_count;
-	long long	time_start;
-	int	dead;
-	int	satisfied;
-}				t_rules;
 
 typedef struct s_philos
 {
@@ -44,6 +32,19 @@ typedef struct s_philos
 	pthread_mutex_t action_printing;
 	pthread_mutex_t eating;
 }				t_philos;
+
+typedef struct s_rules
+{
+	int	n_philo;
+	int	time_to_die;
+	int	time_to_sleep;
+	int	time_to_eat;
+	int	must_eat_count;
+	long long	time_start;
+	int	dead;
+	int	satisfied;
+	struct s_philos *philo;
+}				t_rules;
 
 /* ERROR MANAGEMENT */
 int	error(int error);

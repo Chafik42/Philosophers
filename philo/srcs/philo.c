@@ -6,15 +6,19 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 11:51:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/15 16:52:25 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 18:53:36 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
 void	philo_eat(t_philos *philo, t_rules *rules)
 {
+	if (philo->id == 1)
+		printf("0 LEFT  = %d\n", philo->fork_left);
 	pthread_mutex_lock(&(philo->forks[philo->fork_left]));
 	print_action(philo, rules, philo->id, " has taken a fork\n");
+	if (philo->id == 1)
+		printf("0 RIGHT  = %d\n", philo->fork_right);
 	pthread_mutex_lock(&(philo->forks[philo->fork_right]));
 	print_action(philo, rules, philo->id, " has taken a fork\n");
 	pthread_mutex_lock(&(philo->eating));
@@ -53,7 +57,7 @@ int	philosophers(t_rules *rules)
 {
 	t_philos	*philo;
 
-	philo = malloc(sizeof(t_philos) * rules->n_philo);
+	philo = malloc(sizeof(t_philos) * (rules->n_philo));
 	if (!philo)
 		return (0);
 	init_philo(philo, rules);
