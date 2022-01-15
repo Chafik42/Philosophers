@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:39:05 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/14 22:01:52 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 15:56:48 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -31,8 +31,8 @@ void	check_end(t_philos *philo, t_rules *rules)
 				rules->dead = 1;
 				while (j < rules->n_philo)
 				{
-					pthread_mutex_unlock(&(philo[i].forks[philo->fork_left]));
-					pthread_mutex_unlock(&(philo[i].forks[philo->fork_right]));
+					pthread_mutex_unlock(&(philo[j].forks[philo->fork_left]));
+					pthread_mutex_unlock(&(philo[j].forks[philo->fork_right]));
 					j++;
 				}
 			}
@@ -40,9 +40,7 @@ void	check_end(t_philos *philo, t_rules *rules)
 			i++;
 		}
 		if (rules->dead)
-		{
 			break ;
-		}
 	}
 }
 

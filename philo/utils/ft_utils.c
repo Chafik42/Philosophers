@@ -6,36 +6,33 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 15:08:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/14 20:59:26 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 16:22:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
 void	print_action(t_philos *philo, t_rules *rules, int philo_id, char *str)
 {
+	pthread_mutex_lock(&(philo->action_printing));
 	if (!rules->dead)
 	{
-		pthread_mutex_lock(&(philo->action_printing));
 		printf("%lld ", timestamp() - rules->time_start);
-		printf("%d", philo_id);
+		printf("%d", philo_id + 1);
 		printf("%s", str);
-		pthread_mutex_unlock(&(philo->action_printing));
 	}
+	pthread_mutex_unlock(&(philo->action_printing));
 }
 
-
-long long	timediff(long long past, long long pres)
-{
-	return (pres - past);
-}
 void	sleep_andcheck(long long time, t_rules *rules)
 {
-	long long timediffs;
+	long long start_time;
+	long long time_diff;
 
-	timediffs = timestamp();
+	start_time = timestamp();
 	while (!rules->dead)
 	{
-		if (timediff(timediffs, timestamp()) >= time)
+		time_diff = timestamp() - start_time;
+		if (time_diff >= time)
 			return ;
 		usleep(50);
 	}

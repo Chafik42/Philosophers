@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:06:56 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/14 21:16:23 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 16:39:51 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -26,7 +26,7 @@ int	start_threads(t_philos *philo, t_rules *rules)
 		}
 		i++;
 	}
-	usleep(rules->time_to_eat * 1000);
+	usleep(15000);
 	i = 0;
 	while (i < rules->n_philo)
 	{

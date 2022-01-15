@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 11:51:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/14 21:16:11 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/15 16:52:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -25,6 +25,8 @@ void	philo_eat(t_philos *philo, t_rules *rules)
 	philo->eat_count++;
 	pthread_mutex_unlock(&(philo->forks[philo->fork_left]));
 	pthread_mutex_unlock(&(philo->forks[philo->fork_right]));
+	if (philo->id == 0)
+		printf("LOL = %lld\n", timestamp() - rules->time_start);
 }
 
 void	*init(void *data)
