@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:21:13 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 16:55:09 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/16 17:16:43 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ long long	timestamp(void);
 int			philosophers(t_data *data);
 void		init_philo(t_philos *philo, t_data *data);
 void		init_mutex(t_data *data);
-void		exit_thread(t_philos *philo, t_data *data);
+int			exit_thread(t_philos *philo, t_data *data);
 int			start_threads(t_philos *philo, t_data *data, int i);
 int			check_end(t_philos *philo, t_data *data, int i);
 void		*init(void *data);

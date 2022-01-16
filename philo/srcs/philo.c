@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 11:51:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 16:54:48 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/16 17:17:16 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -55,9 +55,11 @@ int	philosophers(t_data *data)
 		return (0);
 	init_philo(philo, data);
 	data->time_start = timestamp();
-	start_threads(philo, data, 0);
+	if (!start_threads(philo, data, 0))
+		return (0);
 	data->satisfied = check_end(philo, data, 0);
-	exit_thread(philo, data);
+	if (!exit_thread(philo, data))
+		return (0);
 	free(philo->data->forks);
 	free(philo);
 	return (1);

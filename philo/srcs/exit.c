@@ -6,12 +6,12 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:17:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 16:49:20 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/16 17:15:36 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	exit_thread(t_philos *philo, t_data *data)
+int	exit_thread(t_philos *philo, t_data *data)
 {
 	int	i;
 
@@ -19,7 +19,7 @@ void	exit_thread(t_philos *philo, t_data *data)
 	while (i < data->n_philo)
 	{
 		if (pthread_join(philo[i].t_id, NULL))
-			return ;
+			return (0);
 		i++;
 	}
 	i = 0;
@@ -29,4 +29,5 @@ void	exit_thread(t_philos *philo, t_data *data)
 		i++;
 	}
 	pthread_mutex_destroy(&(data->action_printing));
+	return (1);
 }

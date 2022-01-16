@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 16:54:05 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/16 17:18:03 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -77,6 +77,6 @@ int	main(int ac, char **av)
 	init_data(ac, av, &data);
 	init_mutex(&data);
 	if (!philosophers(&data))
-		return (error(2));
+		return (error(3));
 	return (0);
 }
