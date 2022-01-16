@@ -6,82 +6,77 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/15 18:34:15 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/16 16:54:05 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
 long long	timestamp(void)
 {
-	struct timeval tv;
+	struct timeval	tv;
 
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec) * 1000 + (tv.tv_usec / 1000));
 }
 
-void	init_mutex(t_philos *philo, t_rules *rules)
+void	init_mutex(t_data *data)
 {
 	int	i;
 
 	i = 0;
-	philo->forks = malloc(sizeof(pthread_mutex_t) * (rules->n_philo));
-	if (!philo->forks)
+	data->forks = malloc(sizeof(pthread_mutex_t) * (data->n_philo));
+	if (!data->forks)
 		return ;
-	while (i < rules->n_philo)
+	while (i < data->n_philo)
 	{
-		pthread_mutex_init(&philo->forks[i], NULL);
+		pthread_mutex_init(&data->forks[i], NULL);
 		i++;
 	}
-	pthread_mutex_init(&(philo->action_printing), NULL);
-	pthread_mutex_init(&(philo->eating), NULL);
+	pthread_mutex_init(&(data->action_printing), NULL);
+	pthread_mutex_init(&(data->eating), NULL);
 }
 
-void	init_philo(t_philos *philo, t_rules *rules)
+void	init_philo(t_philos *philo, t_data *data)
 {
 	int	i;
 
 	i = 0;
-	while (i < rules->n_philo)
+	while (i < data->n_philo)
 	{
 		philo[i].lastmeal = 0;
-		philo[i].rules = rules;
-		philo[i].rules->dead = 0;
+		philo[i].data = data;
 		philo[i].id = i;
 		philo[i].fork_left = i;
-		philo[i].fork_right = (i + 1) % rules->n_philo;
-		printf("INIT PHILO = %d\n", philo[0].fork_right);
-		/* Fourchette a droite de l'autre fourchette, % max si jamais on est sur la derniere*/
+		philo[i].fork_right = (i + 1) % data->n_philo;
 		i++;
 	}
 }
 
-void	init_rules(int ac ,char **av, t_rules *rules)
+void	init_data(int ac, char **av, t_data *data)
 {
-	rules->n_philo = ft_atoi(av[1]);
-	rules->time_to_die = ft_atoi(av[2]);
-	rules->time_to_sleep = ft_atoi(av[3]);
-	rules->time_to_eat = ft_atoi(av[4]);
-	rules->dead = 0;
-	rules->satisfied = 0;
+	data->n_philo = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_sleep = ft_atoi(av[3]);
+	data->time_to_eat = ft_atoi(av[4]);
+	data->dead = 0;
+	data->satisfied = 0;
 	if (ac == 6)
-		rules->must_eat_count = ft_atoi(av[5]);
+		data->must_eat_count = ft_atoi(av[5]);
 	else
-		rules->must_eat_count = 0;
+		data->must_eat_count = -1;
 }
 
 int	main(int ac, char **av)
 {
-	t_rules *rules;
+	t_data	data;
 
-	rules = malloc(sizeof(rules));
-	if (!rules)
-		return (0);
 	if (ac != 6 && ac != 5)
 		return (error(1));
 	if (!check_arguments(av, ac))
 		return (error(2));
-	init_rules(ac, av, rules);
-	if (!philosophers(rules))
+	init_data(ac, av, &data);
+	init_mutex(&data);
+	if (!philosophers(&data))
 		return (error(2));
 	return (0);
 }

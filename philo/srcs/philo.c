@@ -6,64 +6,59 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 11:51:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/15 18:53:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/16 16:54:48 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
-void	philo_eat(t_philos *philo, t_rules *rules)
+void	philo_eat(t_philos *philo, t_data *data)
 {
-	if (philo->id == 1)
-		printf("0 LEFT  = %d\n", philo->fork_left);
-	pthread_mutex_lock(&(philo->forks[philo->fork_left]));
-	print_action(philo, rules, philo->id, " has taken a fork\n");
-	if (philo->id == 1)
-		printf("0 RIGHT  = %d\n", philo->fork_right);
-	pthread_mutex_lock(&(philo->forks[philo->fork_right]));
-	print_action(philo, rules, philo->id, " has taken a fork\n");
-	pthread_mutex_lock(&(philo->eating));
-	print_action(philo, rules, philo->id, " is eating\n");
+	pthread_mutex_lock(&(data->forks[philo->fork_left]));
+	print_action(data, philo->id, " has taken a fork\n");
+	pthread_mutex_lock(&(data->forks[philo->fork_right]));
+	print_action(data, philo->id, " has taken a fork\n");
+	pthread_mutex_lock(&(data->eating));
+	print_action(data, philo->id, " is eating\n");
 	philo->lastmeal = timestamp();
-	pthread_mutex_unlock(&(philo->eating));
-	sleep_andcheck(rules->time_to_eat, rules);
+	pthread_mutex_unlock(&(data->eating));
+	sleep_andcheck(data->time_to_eat, data);
 	philo->eat_count++;
-	pthread_mutex_unlock(&(philo->forks[philo->fork_left]));
-	pthread_mutex_unlock(&(philo->forks[philo->fork_right]));
-	if (philo->id == 0)
-		printf("LOL = %lld\n", timestamp() - rules->time_start);
+	pthread_mutex_unlock(&(data->forks[philo->fork_left]));
+	pthread_mutex_unlock(&(data->forks[philo->fork_right]));
 }
 
-void	*init(void *data)
+void	*init(void *void_data)
 {
-	t_philos 	*philo;
-	t_rules 	*rules;
+	t_philos	*philo;
+	t_data		*data;
 
-	philo = (t_philos *)data;
-	rules = philo->rules;
-	init_mutex(philo, rules);
-	while (!rules->dead)
+	philo = (t_philos *)void_data;
+	data = philo->data;
+	while (!data->dead)
 	{
-		philo_eat(philo, rules);
-		//if (rules->satisfied)
-		//break ;
-		print_action(philo, rules, philo->id, " is sleeping\n");
-		sleep_andcheck(rules->time_to_sleep, rules);
-		print_action(philo, rules, philo->id, " is thinking\n");
+		philo_eat(philo, data);
+		if (data->satisfied)
+			return (NULL);
+		print_action(data, philo->id, " is sleeping\n");
+		sleep_andcheck(data->time_to_sleep, data);
+		print_action(data, philo->id, " is thinking\n");
 	}
 	return (NULL);
 }
 
-int	philosophers(t_rules *rules)
+int	philosophers(t_data *data)
 {
 	t_philos	*philo;
 
-	philo = malloc(sizeof(t_philos) * (rules->n_philo));
+	philo = malloc(sizeof(t_philos) * (data->n_philo));
 	if (!philo)
 		return (0);
-	init_philo(philo, rules);
-	rules->time_start = timestamp();
-	start_threads(philo, rules);
-	check_end(philo, rules);
-	exit_thread(philo, rules);
+	init_philo(philo, data);
+	data->time_start = timestamp();
+	start_threads(philo, data, 0);
+	data->satisfied = check_end(philo, data, 0);
+	exit_thread(philo, data);
+	free(philo->data->forks);
+	free(philo);
 	return (1);
 }
