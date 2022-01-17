@@ -6,13 +6,21 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/10 11:51:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/17 16:54:34 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/17 17:51:10 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
 
 void	philo_eat(t_philos *philo, t_data *data)
 {
+	int	temp_fork;
+
+	if (philo->fork_left > philo->fork_right)
+	{
+		temp_fork = philo->fork_right;
+		philo->fork_right = philo->fork_left;
+		philo->fork_left = temp_fork;
+	}
 	pthread_mutex_lock(&(data->forks[philo->fork_left]));
 	print_action(data, philo->id, " has taken a fork\n");
 	pthread_mutex_lock(&(data->forks[philo->fork_right]));

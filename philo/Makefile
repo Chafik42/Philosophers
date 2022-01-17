@@ -6,7 +6,7 @@
 #    By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/01/04 15:26:40 by cmarouf           #+#    #+#              #
-#    Updated: 2022/01/12 16:38:43 by cmarouf          ###   ########.fr        #
+#    Updated: 2022/01/17 17:51:23 by cmarouf          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ NAME = philo
 all: $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(THREADFLAGS) -g $(OBJS) -o $(NAME)
+	$(CC) $(CFLAGS) $(THREADFLAGS) $(OBJS) -o $(NAME)
 
 clean:
 	$(RM) $(OBJS)
