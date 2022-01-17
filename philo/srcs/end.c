@@ -6,10 +6,22 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:39:05 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 16:49:05 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/17 16:36:25 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
+
+void	one_philosopher(t_philos *philo, t_data *data)
+{
+	if (data->n_philo == 1)
+	{
+		if (data->dead)
+		{
+			pthread_mutex_unlock(&(data->forks[philo->fork_left]));
+			pthread_mutex_unlock(&(data->forks[philo->fork_right]));
+		}
+	}
+}
 
 int	check_meal(t_philos *p, t_data *d)
 {
@@ -37,6 +49,7 @@ int	check_end(t_philos *p, t_data *d, int i)
 			{
 				print_action(d, p[i].id, " died\n");
 				d->dead = 1;
+				one_philosopher(p, d);
 			}
 			pthread_mutex_unlock(&(d->eating));
 			i++;

@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/11 17:17:53 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 17:15:36 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/17 16:04:49 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -29,5 +29,6 @@ int	exit_thread(t_philos *philo, t_data *data)
 		i++;
 	}
 	pthread_mutex_destroy(&(data->action_printing));
+	pthread_mutex_destroy(&(data->eating));
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/12 16:06:56 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 16:54:41 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/17 17:00:30 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -23,7 +23,7 @@ int	start_threads(t_philos *philo, t_data *data, int i)
 		}
 		i++;
 	}
-	usleep(15000);
+	sleep_andcheck(data->time_to_eat, data);
 	i = 0;
 	while (i < data->n_philo)
 	{

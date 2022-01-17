@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/16 17:18:03 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/17 16:59:51 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -52,18 +52,26 @@ void	init_philo(t_philos *philo, t_data *data)
 	}
 }
 
-void	init_data(int ac, char **av, t_data *data)
+int	init_data(int ac, char **av, t_data *data)
 {
 	data->n_philo = ft_atoi(av[1]);
 	data->time_to_die = ft_atoi(av[2]);
-	data->time_to_sleep = ft_atoi(av[3]);
-	data->time_to_eat = ft_atoi(av[4]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
 	data->dead = 0;
 	data->satisfied = 0;
 	if (ac == 6)
+	{
 		data->must_eat_count = ft_atoi(av[5]);
+		if (data->must_eat_count <= 0)
+			return (0);
+	}
 	else
 		data->must_eat_count = -1;
+	if (data->n_philo < 1 || data->time_to_die < 60 || data->time_to_sleep < 60
+		|| data->time_to_eat < 60)
+		return (0);
+	return (1);
 }
 
 int	main(int ac, char **av)
@@ -74,7 +82,8 @@ int	main(int ac, char **av)
 		return (error(1));
 	if (!check_arguments(av, ac))
 		return (error(2));
-	init_data(ac, av, &data);
+	if (!init_data(ac, av, &data))
+		return (error(2));
 	init_mutex(&data);
 	if (!philosophers(&data))
 		return (error(3));
