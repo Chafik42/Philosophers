@@ -6,7 +6,7 @@
 /*   By: cmarouf <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/01/04 15:23:09 by cmarouf           #+#    #+#             */
-/*   Updated: 2022/01/17 16:59:51 by cmarouf          ###   ########.fr       */
+/*   Updated: 2022/01/17 17:13:30 by cmarouf          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../includes/philo.h"
@@ -48,6 +48,7 @@ void	init_philo(t_philos *philo, t_data *data)
 		philo[i].id = i;
 		philo[i].fork_left = i;
 		philo[i].fork_right = (i + 1) % data->n_philo;
+		philo[i].eat_count = 0;
 		i++;
 	}
 }
