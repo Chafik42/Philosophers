@@ -38,6 +38,7 @@ There is also some alternative of the thread, like fork, or semaphore.
 ## Usage
 
 > make
+
 > ./philo (number of philosophers) (time_to_die in ms) (time_to_eat in ms) (time_to_sleep in ms) (Optionnaly number_of_times_each_philosopher_must_eat)
 
 ## Example
